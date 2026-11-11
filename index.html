@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // Base path: "/" on a custom domain, "/<repo>/" on a github.io project page. Restores routes sent here by 404.html (?r=).
+  (function () {
+    var l = location;
+    var seg = l.hostname.endsWith('github.io') ? l.pathname.split('/')[1] : '';
+    window.MS_BASE = seg ? '/' + seg + '/' : '/';
+    document.write('<base href="' + window.MS_BASE + '">');
+    var p = new URLSearchParams(l.search);
+    if (p.has('r')) {
+      var r = p.get('r'); p.delete('r');
+      var q = p.toString();
+      history.replaceState(null, '', window.MS_BASE + r + (q ? '?' + q : '') + l.hash);
+    }
+  })();
+</script>
+<title>BOT Multisend — pay everyone in one click</title>
+<meta name="description" content="Send BOT or any token to hundreds of wallets in one transaction on BOT Chain — checked before, receipted after.">
+<meta property="og:title" content="BOT Multisend — pay everyone in one click">
+<meta property="og:description" content="Send BOT or any token to hundreds of wallets from a CSV, with checks before you send and a receipt page after.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#F5F5F5">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.5/ethers.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MotionPathPlugin.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./" data-link aria-label="BOT Multisend home"><span class="brand-mark" data-logo></span><span>Multisend</span></a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="./#use-cases" data-link>Use cases</a>
+      <a href="./#how" data-link>How it works</a>
+      <a href="./#receipts" data-link>Receipts</a>
+      <a href="./#faq" data-link>FAQ</a>
+    </nav>
+    <div class="nav-right">
+      <button class="btn btn-outline btn-sm" id="walletBtn" type="button">Connect wallet</button>
+      <a class="btn btn-mint btn-sm nav-cta" href="app" data-link>Send a batch</a>
+      <button class="nav-menu" id="navMenu" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<main id="view" tabindex="-1"></main>
+<footer class="footer" id="footer"></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="modal" id="modal" hidden></div>
+<script type="module" src="assets/main.js"></script>
+</body>
+</html>
